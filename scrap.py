@@ -47,7 +47,7 @@ large_list = []
 for i,j in zip(pal,val):
          large_list.append([i,j,j%10])
 
-print(large_list)
+#print(large_list)
 
 
 
@@ -65,3 +65,4 @@ with open(filename, 'w') as csvfile:
         
     # writing the data rows  
     csvwriter.writerows(large_list) 
+print("::::::done::::::")
