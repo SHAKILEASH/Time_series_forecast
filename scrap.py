@@ -1,44 +1,67 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
-import time
-import pickle 
+from bs4 import BeautifulSoup
 from selenium.webdriver.chrome.options import Options
+import time
+import csv 
 
-#ch_options = webdriver.ChromeOptions()
-#ch_options.add_argument(r"user-data-dir = C:\Users\Shaki\AppData\Local\Google\Chrome\User Data")
-#driver = webdriver.Chrome(executable_path=r'C:\Users\Shaki\scrap\chromedriver.exe', options = ch_options)
-'''driver.get("https://www.bonumunion.com/account/login?href=https%3A%2F%2Fwww.bonumunion.com%2Findex")
-print("driver\n\n\n",driver)
-driver.refresh()
-username = driver.find_element_by_xpath("//input[@placeholder='User Name']")
 
-driver.execute_script(
-"document.getElementsByClassName('van-field__control')[1].removeAttribute('readonly')");
-driver.execute_script(
-"document.getElementsByClassName('van-field__control')[1].value='nif'");
-#driver.execute_script("$('input[type=password]');");
-password = driver.find_element_by_xpath("//input[@placeholder='Password']")
-print("password",password.is_displayed())
-username.send_keys("6380954027")
-password.send_keys("6380954027")
-'''
 options = webdriver.ChromeOptions()
-options.add_argument(r"--user-data-dir=C:\Users\Shaki\AppData\Local\Google\Chrome\User Data") #Path to your chrome profile
+options.add_argument(r"--user-data-dir=C:\Users\Arvi\AppData\Local\Google\Chrome\User Data") #Path to your chrome profile
 
-driver = webdriver.Chrome(r'C:\Users\Shaki\scrap\chromedriver.exe', chrome_options=options)
+driver = webdriver.Chrome(r'C:\Users\Arvi\Desktop\scrap-infinite-scroll\chromedriver.exe', chrome_options=options)
 driver.get("https://www.bonumunion.com/parity/paritycat?type=0")
-#driver.get('https://www.google.com/')
-'''username = driver.find_element_by_id("usr")
-password = driver.find_element_by_id("pwd")'''
 
-#username.send_keys("admin")
-#password.send_keys("12345")
+time.sleep(5)
+data = []
+print("scrolling")
+i=0
+while i<1:
+    time.sleep(3)
+    print(i,"calling")
+    driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+    i+=1
+time.sleep(10)
+k = 0
+soup=BeautifulSoup(driver.page_source,"html.parser")
+divs = soup.find_all("div", class_="content van-row van-row--flex van-row--justify-center")
+for div in divs:
+    val = []
+    pal = []
+    div = soup.find_all('div','van-col van-col--5')
+    period = soup.find_all('div','header__noe van-col van-col--9')
+    for i in div:
+        if(i.text!='Price' and i.text!='Number'):
+            if(int(i.text)>10):
+                val.append(int(i.text))
+        #print("hai print",i.text)
+    for j in period:
+        if(j.text!=' Period'):
+            pal.append(int(j.text))    
+       
+    if(k==0):
+        #print("tatata!")
+        break 
+large_list = []
+for i,j in zip(pal,val):
+         large_list.append([i,j,j%10])
 
-#driver.find_element_by_xpath("//input[@type='submit']").click()
-#pickle.dump(driver.get_cookies() , open("QuoraCookies.pkl","wb")) 
-'''for cookie in pickle.load(open("QuoraCookies.pkl", "rb")): 
-    driver.add_cookie(cookie)'''
+print(large_list)
 
-#driver.find_element_by_name("Login Imediately").click()
-#browser = webdriver.Firefox(r'C:\Program Files\Mozilla Firefox\firefox.exe')
+
+
+
+
+filename = "bonum.csv"
+    
+# writing to csv file  
+with open(filename, 'w') as csvfile:  
+    # creating a csv writer object  
+    csvwriter = csv.writer(csvfile)  
+        
+    # writing the fields  
+    csvwriter.writerow(["Period",'Price','Num'])  
+        
+    # writing the data rows  
+    csvwriter.writerows(large_list) 
