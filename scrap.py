@@ -17,12 +17,12 @@ time.sleep(5)
 data = []
 print("scrolling")
 i=0
-while i<50:
-    time.sleep(3)
+while i<150:
+    time.sleep(2)
     print(i,"calling")
     driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
     i+=1
-time.sleep(10)
+time.sleep(5)
 k = 0
 soup=BeautifulSoup(driver.page_source,"html.parser")
 divs = soup.find_all("div", class_="content van-row van-row--flex van-row--justify-center")
@@ -65,4 +65,5 @@ with open(filename, 'w') as csvfile:
         
     # writing the data rows  
     csvwriter.writerows(large_list) 
+print(len(large_list))
 print("::::::done::::::")
