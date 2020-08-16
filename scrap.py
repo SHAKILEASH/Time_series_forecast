@@ -19,7 +19,7 @@ time.sleep(5)
 data = []
 print("scrolling")
 i=0
-while i<150:
+while i<250:
     time.sleep(2)
     print(i,"calling")
     driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
