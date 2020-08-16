@@ -5,6 +5,8 @@ from bs4 import BeautifulSoup
 from selenium.webdriver.chrome.options import Options
 import time
 import csv 
+import winsound
+
 
 
 options = webdriver.ChromeOptions()
@@ -66,4 +68,20 @@ with open(filename, 'w') as csvfile:
     # writing the data rows  
     csvwriter.writerows(large_list) 
 print(len(large_list))
+freq = 500 
+  
+            
+dur = 200
+
+winsound.Beep(freq, dur) 
+engine = pyttsx3.init() 
+  
+
+engine.say('Scraping is done') 
+  
+  
+engine.runAndWait() 
+               
+winsound.Beep(freq, dur) 
+
 print("::::::done::::::")
