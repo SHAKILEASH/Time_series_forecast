@@ -6,6 +6,7 @@ from selenium.webdriver.chrome.options import Options
 import time
 import csv 
 import winsound
+import pyttsx3
 
 
 
