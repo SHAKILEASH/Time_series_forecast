@@ -20,12 +20,12 @@ time.sleep(5)
 data = []
 print("scrolling")
 i=0
-while i<250:
+while i<400:
     time.sleep(2)
     print(i,"calling")
     driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
     i+=1
-time.sleep(5)
+time.sleep(8)
 k = 0
 soup=BeautifulSoup(driver.page_source,"html.parser")
 divs = soup.find_all("div", class_="content van-row van-row--flex van-row--justify-center")
@@ -72,16 +72,10 @@ print(len(large_list))
 freq = 500 
   
             
-dur = 200
+dur = 1000
 
 winsound.Beep(freq, dur) 
-engine = pyttsx3.init() 
-  
 
-engine.say('Scraping is done') 
-  
-  
-engine.runAndWait() 
                
 winsound.Beep(freq, dur) 
 
