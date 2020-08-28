@@ -11,9 +11,9 @@ import pyttsx3
 
 
 options = webdriver.ChromeOptions()
-options.add_argument(r"--user-data-dir=C:\Users\Arvi\AppData\Local\Google\Chrome\User Data") #Path to your chrome profile
+options.add_argument(r"--user-data-dir=enter location of your chrome use data") #Path to your chrome profile
 
-driver = webdriver.Chrome(r'C:\Users\Arvi\Desktop\scrap-infinite-scroll\chromedriver.exe', chrome_options=options)
+driver = webdriver.Chrome(r'enter chromedriver location', chrome_options=options)
 driver.get("https://www.bonumunion.com/parity/paritycat?type=0")
 
 time.sleep(5)
